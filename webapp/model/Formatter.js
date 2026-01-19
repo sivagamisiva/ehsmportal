@@ -1,10 +1,10 @@
- 
+
 sap.ui.define([], function () {
     "use strict";
-   
+
     // This object contains all the functions referenced in both Incident and Risk views
     return {
- 
+
         /**
          * Formats the OData date timestamp (/Date(1755561600000)/) into a readable date string.
          * @param {string} sDate The date string from the OData service.
@@ -14,17 +14,23 @@ sap.ui.define([], function () {
             if (!sDate) {
                 return "";
             }
+
+            // Check if sDate is already a valid Date object
+            if (sDate instanceof Date) {
+                return sDate.toLocaleDateString();
+            }
+
             // Extract the numeric timestamp and convert it to an integer
             // Example: /Date(1755561600000)/ -> 1755561600000
             var iTime = parseInt(sDate.replace("/Date(", "").replace(")/", ""), 10);
             var oDate = new Date(iTime);
-           
+
             // Return the date in a localized, readable format (e.g., 12/15/2025)
             return oDate.toLocaleDateString();
         },
- 
+
         // --- INCIDENT FORMATTERS ---
- 
+
         /**
          * Maps the Incident Priority text ('High', 'Medium', 'Low') to the
          * sap.ui.core.ValueState for coloring the ObjectStatus control.
@@ -43,7 +49,7 @@ sap.ui.define([], function () {
                     return "None";
             }
         },
- 
+
         /**
          * Maps the Incident Status text ('Open', 'In Progress', 'Closed') to the
          * sap.ui.core.ValueState for coloring the ObjectStatus control.
@@ -62,9 +68,9 @@ sap.ui.define([], function () {
                     return "None";
             }
         },
-       
+
         // --- RISK FORMATTERS ---
- 
+
         /**
          * Maps Risk Severity text ('High', 'Medium', 'Low') to the
          * sap.ui.core.ValueState for coloring the ObjectStatus control.
@@ -83,7 +89,7 @@ sap.ui.define([], function () {
                     return "None";
             }
         },
- 
+
         /**
          * Maps Likelihood text ('Likely', 'Unlikely', 'Rare') to the
          * sap.ui.core.ValueState for coloring the ObjectStatus control.
@@ -104,4 +110,3 @@ sap.ui.define([], function () {
         }
     };
 });
- 
