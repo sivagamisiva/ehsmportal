@@ -5,21 +5,21 @@ sap.ui.define([
     "sap/ui/core/BusyIndicator"
 ], function (Controller, MessageToast, JSONModel, BusyIndicator) {
     "use strict";
- 
+
     return Controller.extend("com.ehsm.ehsmportal.controller.Profile", {
- 
+
         onInit: function () {
             // Get the Router for the current component
             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
             // Attach the _onRouteMatched function to the 'Profile' route
             oRouter.getRoute("Profile").attachPatternMatched(this._onRouteMatched, this);
         },
- 
+
         _onRouteMatched: function () {
             // Get the global 'app' model to retrieve the logged-in user
             var oAppModel = this.getOwnerComponent().getModel("app");
             var sEmployeeId = oAppModel ? oAppModel.getProperty("/loggedInUser/EmployeeId") : null;
-           
+
             if (sEmployeeId) {
                 this.loadProfileData(sEmployeeId);
             } else {
@@ -28,42 +28,36 @@ sap.ui.define([
                 this.onNavBack();
             }
         },
- 
+
         loadProfileData: function (sEmployeeId) {
             BusyIndicator.show(0);
             var that = this;
-           
-            // Construct the OData URL using the key parameter 'EmployeeId'
-            // Ensure the URL path matches your service definition (ZEHSP_508_OD_SRV)
-            var sUrl = "/sap/opu/odata/SAP/ZEHSP_508_OD_SRV/ZEHSM_PROFILE_SGSet(EmployeeId='" + sEmployeeId + "')?$format=json";
- 
-            $.ajax({
-                url: sUrl,
-                method: "GET",
-                async: true,
-                xhrFields: {
-                    withCredentials: true
-                },
+            var oModel = this.getOwnerComponent().getModel();
+
+            var sPath = oModel.createKey("/ZEHSM_PROFILE_SGSet", {
+                EmployeeId: sEmployeeId
+            });
+
+            oModel.read(sPath, {
                 success: function (oData) {
                     BusyIndicator.hide();
- 
-                    var oProfileData = oData.d;
-                    if (oProfileData) {
+
+                    if (oData) {
                         // Create a new JSON Model for the Profile View and set the data
-                        var oProfileModel = new JSONModel(oProfileData);
+                        var oProfileModel = new JSONModel(oData);
                         that.getView().setModel(oProfileModel, "profileModel");
                     } else {
                         MessageToast.show("No profile data found.");
                     }
                 },
-                error: function (xhr, status, error) {
+                error: function (oError) {
                     BusyIndicator.hide();
                     MessageToast.show("Failed to load profile data.");
-                    console.error("Profile AJAX Error:", xhr.responseText || error);
+                    console.error("Profile Error:", oError);
                 }
             });
         },
- 
+
         onNavBack: function () {
             // Standard back navigation
             this.getOwnerComponent().getRouter().navTo("Dashboard");
