@@ -55,6 +55,7 @@ sap.ui.define([
 
                     if (oData && oData.results) {
                         console.log("RiskDetails: Correct results found. Count:", oData.results.length);
+                        MessageToast.show("Loaded " + oData.results.length + " risks successfully!");
                         // Bind the array of risks to the view
                         var oRiskModel = new JSONModel({ risks: oData.results });
                         that.getView().setModel(oRiskModel, "riskModel");

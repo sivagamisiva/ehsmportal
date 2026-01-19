@@ -54,6 +54,7 @@ sap.ui.define([
 
                     if (oData && oData.results) {
                         console.log("IncidentDetails: Correct results found. Count:", oData.results.length);
+                        MessageToast.show("Loaded " + oData.results.length + " incidents successfully!");
                         var oIncidentModel = new JSONModel({ incidents: oData.results });
                         that.getView().setModel(oIncidentModel, "incidentModel");
                     } else {
