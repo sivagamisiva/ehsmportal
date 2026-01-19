@@ -1,0 +1,112 @@
+<mvc:View
+    controllerName="com.ehsm.ehsmportal.controller.IncidentDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+ 
+    <Page
+        title="My Incidents (Expandable List)"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+ 
+        <content>
+            <List
+                id="incidentList"
+                items="{incidentModel>/incidents}"
+                mode="None"
+                class="sapUiResponsiveContentPadding">
+ 
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Incidents Reported/Involved" level="H2"/>
+                        <ToolbarSpacer/>
+                        <SearchField width="30%" search="onSearch"/>
+                    </Toolbar>
+                </headerToolbar>
+ 
+                <CustomListItem type="Active" press="onIncidentToggle">
+                    <VBox class="sapUiTinyMargin">
+                       
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                           
+                            <VBox>
+                                <ObjectIdentifier
+                                    title="{incidentModel>IncidentId}"
+                                    text="{incidentModel>IncidentDescription}"
+                                    titleActive="false" />
+                                <ObjectStatus
+                                    text="{incidentModel>IncidentStatus}"
+                                    state="{
+                                        path: 'incidentModel>IncidentStatus',
+                                        formatter: '.myFormatter.statusState'
+                                    }"
+                                    class="sapUiTinyMarginTop"/>
+                            </VBox>
+ 
+                            <HBox alignItems="Center">
+                                <ObjectStatus
+                                    text="{incidentModel>IncidentPriority}"
+                                    state="{
+                                        path: 'incidentModel>IncidentPriority',
+                                        formatter: '.myFormatter.priorityState'
+                                    }"
+                                    class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+                                   
+                                <core:Icon
+                                    src="sap-icon://slim-arrow-down"
+                                    id="toggleIcon"
+                                    class="sapUiTinyMarginBegin"/>
+                            </HBox>
+ 
+                        </HBox>
+                       
+                        <Panel
+                            id="detailPanel"
+                            expanded="false"
+                            visible="false"
+                            class="incidentDetailsPanel">
+                           
+                            <f:SimpleForm
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                labelSpanL="4" labelSpanM="4"
+                                columnsL="2" columnsM="1"
+                                class="sapUiNoContentPadding">
+                               
+                                <core:Title text="Incident Details"/>
+                               
+                                <Label text="Description"/>
+                                <Text text="{incidentModel>IncidentDescription}"/> <Label text="Category"/>
+                                <Text text="{incidentModel>IncidentCategory}"/>
+                               
+                                <Label text="Plant"/>
+                                <Text text="{incidentModel>Plant}"/>
+                               
+                                <Label text="Reported By"/>
+                                <Text text="{incidentModel>CreatedBy}"/>
+ 
+                                <core:Title text="Timeline"/>
+ 
+                                <Label text="Incident Date"/>
+                                <Text text="{path: 'incidentModel>IncidentDate', formatter: '.myFormatter.formatDate'}"/>
+                               
+                                <Label text="Incident Time"/>
+                                <Text text="{incidentModel>IncidentTime}"/>
+                               
+                                <Label text="Completion Date"/>
+                                <Text text="{path: 'incidentModel>CompletionDate', formatter: '.myFormatter.formatDate'}"/>
+                               
+                                <Label text="Completion Time"/>
+                                <Text text="{incidentModel>CompletionTime}"/>
+                               
+                            </f:SimpleForm>
+                        </Panel>
+ 
+                    </VBox>
+                </CustomListItem>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

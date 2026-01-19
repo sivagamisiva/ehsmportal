@@ -1,0 +1,42 @@
+<mvc:View
+    controllerName="com.ehsm.ehsmportal.controller.Login"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+ 
+    <Page title="SHOP FLOOR PORTAL - Login" class="customLoginPage">
+ 
+        <content>
+            <VBox
+                class="fullScreenCenter">
+ 
+                <VBox
+                    class="customLoginBox"
+                    alignItems="Center"
+                    justifyContent="Center">
+ 
+                    <Input
+                        id="empId"
+                        placeholder="Enter Engineer ID"
+                        width="300px"
+                        class="customInput"/>
+ 
+                    <Input
+                        id="password"
+                        placeholder="Enter Password"
+                        type="Password"
+                        width="300px"
+                        class="customInput"/>
+ 
+                    <Button
+                        text="Login"
+                        press="onLogin"
+                        class="customButton"/>
+ 
+                </VBox>
+ 
+            </VBox>
+        </content>
+ 
+    </Page>
+ 
+</mvc:View>

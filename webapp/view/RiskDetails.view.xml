@@ -1,0 +1,111 @@
+<mvc:View
+    controllerName="com.ehsm.ehsmportal.controller.RiskDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+ 
+    <Page
+        title="My Risk Assessments (Expandable List)"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+ 
+        <content>
+            <List
+                id="riskList"
+                items="{riskModel>/risks}"
+                mode="None"
+                class="sapUiResponsiveContentPadding">
+ 
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Hazard and Risk Assessments" level="H2"/>
+                        <ToolbarSpacer/>
+                        <SearchField width="30%" search="onSearch"/>
+                    </Toolbar>
+                </headerToolbar>
+ 
+                <CustomListItem type="Active" press="onRiskToggle">
+                    <VBox class="sapUiTinyMargin">
+                       
+                        <HBox justifyContent="SpaceBetween" alignItems="Center" class="sapUiSmallMarginBottom">
+                           
+                            <VBox>
+                                <ObjectIdentifier
+                                    title="{riskModel>RiskId}"
+                                    text="{riskModel>RiskDescription}"
+                                    titleActive="false" />
+                                <ObjectStatus
+                                    text="{riskModel>RiskCategory}"
+                                    class="sapUiTinyMarginTop"/>
+                            </VBox>
+ 
+                            <HBox alignItems="Center">
+                                <ObjectStatus
+                                    text="{riskModel>RiskSeverity}"
+                                    title="Severity:"
+                                    state="{
+                                        path: 'riskModel>RiskSeverity',
+                                        formatter: '.myFormatter.severityState'
+                                    }"
+                                    class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+                                   
+                                <ObjectStatus
+                                    text="{riskModel>Likelihood}"
+                                    title="Likelihood:"
+                                    state="{
+                                        path: 'riskModel>Likelihood',
+                                        formatter: '.myFormatter.likelihoodState'
+                                    }"
+                                    class="sapUiTinyMarginEnd sapUiTinyMarginTop"/>
+                                   
+                                <core:Icon
+                                    src="sap-icon://slim-arrow-down"
+                                    id="toggleIcon"
+                                    class="sapUiTinyMarginBegin"/>
+                            </HBox>
+ 
+                        </HBox>
+                       
+                        <Panel
+                            id="detailPanel"
+                            expanded="false"
+                            visible="false"
+                            class="riskDetailsPanel">
+                           
+                            <f:SimpleForm
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                labelSpanL="4" labelSpanM="4"
+                                columnsL="2" columnsM="1"
+                                class="sapUiNoContentPadding">
+                               
+                                <core:Title text="Risk Details"/>
+                               
+                                <Label text="Risk Description"/>
+                                <Text text="{riskModel>RiskDescription}"/>
+                               
+                                <Label text="Mitigation Measures"/>
+                                <Text text="{riskModel>MitigationMeasures}"/>
+                               
+                                <Label text="Plant"/>
+                                <Text text="{riskModel>Plant}"/>
+                               
+                                <Label text="Identified By"/>
+                                <Text text="{riskModel>CreatedBy}"/>
+ 
+                                <core:Title text="Timeline"/>
+ 
+                                <Label text="Identification Date"/>
+                                <Text text="{path: 'riskModel>RiskIdentificationDate', formatter: '.myFormatter.formatDate'}"/>
+                               
+                            </f:SimpleForm>
+                        </Panel>
+ 
+                    </VBox>
+                </CustomListItem>
+            </List>
+        </content>
+    </Page>
+</mvc:View>

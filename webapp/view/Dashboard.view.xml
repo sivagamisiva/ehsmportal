@@ -1,0 +1,54 @@
+<mvc:View
+    controllerName="com.ehsm.ehsmportal.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+ 
+    <Page
+        title="EHSM Portal - DASHBOARD"
+        class="customDashboardPage"
+        showNavButton="false">
+        <content class="customDashboardBackground">
+ 
+            <VBox>
+                <Text
+                    text="Welcome, {app>/loggedInUser/Empid} !"
+                    class="welcomeText"/>
+            </VBox>
+ 
+            <HBox
+                justifyContent="End"
+                class="sapUiMediumMarginEnd">
+                <Button
+                    text="Logout"
+                    icon="sap-icon://log"
+                    press="onLogout"
+                    type="Emphasized"/>
+            </HBox>
+ 
+            <TileContainer class="customTile dashboardTiles">
+ 
+                <StandardTile
+                    icon="sap-icon://customer"
+                    title="View Profile"
+                    info="Check your employee details"
+                    press="onViewProfilePress"/>
+ 
+                <StandardTile
+                    icon="sap-icon://alert"
+                    title="View Incident Details"
+                    info="Report or view site incidents"
+                    press="onIncidentTilePress"/>
+ 
+                <StandardTile
+                    icon="sap-icon://document"
+                    title="View Risk Details"
+                    info="Manage hazard and risk assessments"
+                    press="onRiskTilePress"/>
+ 
+            </TileContainer>
+ 
+        </content>
+ 
+    </Page>
+ 
+</mvc:View>

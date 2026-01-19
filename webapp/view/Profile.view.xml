@@ -1,0 +1,84 @@
+<mvc:View
+    controllerName="com.ehsm.ehsmportal.controller.Profile"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+ 
+    <Page
+        title="Employee Profile"
+        showNavButton="true"
+        navButtonPress="onNavBack">
+ 
+        <content>
+            <VBox class="sapUiContentPadding">
+               
+                <f:SimpleForm
+                    id="profileForm"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    title="Personal Details"
+                    maxContainerCols="2"
+                    labelSpanL="4"
+                    labelSpanM="4"
+                    emptySpanL="1"
+                    emptySpanM="1"
+                    columnsL="1"
+                    columnsM="1"
+                    class="sapUiResponsiveMargin">
+ 
+                    <f:content>
+                        <core:Title text="Identity" />
+                        <Label text="Employee ID" />
+                        <Text text="{profileModel>/EmployeeId}" />
+                       
+                        <Label text="First Name" />
+                        <Text text="{profileModel>/FirstName}" />
+                       
+                        <Label text="Last Name" />
+                        <Text text="{profileModel>/LastName}" />
+ 
+                        <Label text="Title" />
+                        <Text text="{profileModel>/Title}" />
+                       
+                        <core:Title text="Contact &amp; Location" />
+                        <Label text="Email ID" />
+                        <Text text="{profileModel>/EmailId}" />
+ 
+                        <Label text="Nationality" />
+                        <Text text="{profileModel>/Nationality}" />
+                       
+                        <Label text="City" />
+                        <Text text="{profileModel>/City}" />
+ 
+                        <Label text="Country" />
+                        <Text text="{profileModel>/Country}" />
+                       
+                        <Label text="Postal Code" />
+                        <Text text="{profileModel>/PostalCode}" />
+                       
+                        <core:Title text="Company Details" />
+                        <Label text="Plant" />
+                        <Text text="{profileModel>/Plant}" />
+ 
+                        <Label text="Company" />
+                        <Text text="{profileModel>/Company}" />
+                       
+                        <Label text="Employee Status" />
+                        <Text text="{profileModel>/EmployeeStatus}" />
+ 
+                        <Label text="Start Date" />
+                        <Text text="{path: 'profileModel>/StartDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" />
+ 
+                        <Label text="Language" />
+                        <Text text="{profileModel>/CommLanguage}" />
+ 
+                    </f:content>
+                </f:SimpleForm>
+ 
+            </VBox>
+        </content>
+    </Page>
+ 
+</mvc:View>

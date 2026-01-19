@@ -1,0 +1,23 @@
+{
+  "generationParameters": {
+    "generationDate": "Mon Jan 19 2026 14:27:41 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "SAP System (ABAP On-Premise)",
+    "metadataFilename": "",
+    "serviceUrl": "http://172.17.19.24:8000/sap/opu/odata/sap/ZEHSP_508_OD_SRV",
+    "appName": "ehsmportal",
+    "appTitle": "App Title",
+    "appDescription": "An SAP Fiori application.",
+    "appNamespace": "com.ehsm",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.120.14",
+    "enableEslint": false,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.20.1",
+    "template": "Basic V2",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```"
+  }
+}
