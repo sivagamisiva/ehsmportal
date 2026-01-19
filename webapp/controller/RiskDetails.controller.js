@@ -36,7 +36,13 @@ sap.ui.define([
             var that = this;
             var oModel = this.getOwnerComponent().getModel();
 
-            var aFilters = [new Filter("EmployeeId", FilterOperator.EQ, sEmployeeId)];
+            // Pad EmployeeId to 8 digits if numeric
+            var sVals = sEmployeeId;
+            if (/^\d+$/.test(sEmployeeId) && sEmployeeId.length < 8) {
+                sVals = ("00000000" + sEmployeeId).slice(-8);
+            }
+
+            var aFilters = [new Filter("EmployeeId", FilterOperator.EQ, sVals)];
 
             oModel.read("/ZEHSM_RISK_SGSet", {
                 filters: aFilters,
