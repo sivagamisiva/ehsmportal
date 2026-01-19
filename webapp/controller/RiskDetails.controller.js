@@ -36,11 +36,14 @@ sap.ui.define([
             var that = this;
             var oModel = this.getOwnerComponent().getModel();
 
+            console.log("RiskDetails: loadRiskData called with EmployeeId:", sEmployeeId);
+
             // Pad EmployeeId to 8 digits if numeric
             var sVals = sEmployeeId;
             if (/^\d+$/.test(sEmployeeId) && sEmployeeId.length < 8) {
                 sVals = ("00000000" + sEmployeeId).slice(-8);
             }
+            console.log("RiskDetails: Using Padded EmployeeId for filter:", sVals);
 
             var aFilters = [new Filter("EmployeeId", FilterOperator.EQ, sVals)];
 
@@ -48,19 +51,23 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     BusyIndicator.hide();
+                    console.log("RiskDetails: OData Success. Response:", oData);
+
                     if (oData && oData.results) {
+                        console.log("RiskDetails: Correct results found. Count:", oData.results.length);
                         // Bind the array of risks to the view
                         var oRiskModel = new JSONModel({ risks: oData.results });
                         that.getView().setModel(oRiskModel, "riskModel");
                     } else {
+                        console.warn("RiskDetails: OData response missing 'results' array.");
                         that.getView().setModel(new JSONModel({ risks: [] }), "riskModel");
                         MessageToast.show("No risk assessments found.");
                     }
                 },
                 error: function (oError) {
                     BusyIndicator.hide();
+                    console.error("RiskDetails: OData Error:", oError);
                     MessageToast.show("Failed to load risk data.");
-                    console.error("Risk Error:", oError);
                     that.getView().setModel(new JSONModel({ risks: [] }), "riskModel");
                 }
             });

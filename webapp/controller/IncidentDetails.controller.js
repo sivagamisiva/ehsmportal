@@ -35,11 +35,14 @@ sap.ui.define([
             var that = this;
             var oModel = this.getOwnerComponent().getModel();
 
+            console.log("IncidentDetails: loadIncidentData called with EmployeeId:", sEmployeeId);
+
             // Pad EmployeeId to 8 digits if numeric (SAP standard PERNR)
             var sVals = sEmployeeId;
             if (/^\d+$/.test(sEmployeeId) && sEmployeeId.length < 8) {
                 sVals = ("00000000" + sEmployeeId).slice(-8);
             }
+            console.log("IncidentDetails: Using Padded EmployeeId for filter:", sVals);
 
             var aFilters = [new Filter("EmployeeId", FilterOperator.EQ, sVals)];
 
@@ -47,16 +50,21 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     BusyIndicator.hide();
+                    console.log("IncidentDetails: OData Success. Response:", oData);
+
                     if (oData && oData.results) {
+                        console.log("IncidentDetails: Correct results found. Count:", oData.results.length);
                         var oIncidentModel = new JSONModel({ incidents: oData.results });
                         that.getView().setModel(oIncidentModel, "incidentModel");
                     } else {
+                        console.warn("IncidentDetails: OData response missing 'results' array.");
                         that.getView().setModel(new JSONModel({ incidents: [] }), "incidentModel");
                         MessageToast.show("No incidents found.");
                     }
                 },
                 error: function (oError) {
                     BusyIndicator.hide();
+                    console.error("IncidentDetails: OData Error:", oError);
                     MessageToast.show("Failed to load incident data.");
                     console.error("Incident Error:", oError);
                     that.getView().setModel(new JSONModel({ incidents: [] }), "incidentModel");
