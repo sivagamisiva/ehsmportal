@@ -94,7 +94,29 @@ sap.ui.define([
         },
 
         onSearch: function (oEvent) {
-            // Add search and filter logic here
+            // Get the search query
+            var sQuery = oEvent.getParameter("query");
+            var aFilters = [];
+
+            if (sQuery && sQuery.length > 0) {
+                var oFilter1 = new Filter("IncidentDescription", FilterOperator.Contains, sQuery);
+                var oFilter2 = new Filter("IncidentId", FilterOperator.Contains, sQuery);
+                var oFilter3 = new Filter("IncidentCategory", FilterOperator.Contains, sQuery);
+                var oFilter4 = new Filter("Plant", FilterOperator.Contains, sQuery);
+                var oFilter5 = new Filter("CreatedBy", FilterOperator.Contains, sQuery);
+
+                // Combine filters with OR logic
+                var oAllFilter = new Filter({
+                    filters: [oFilter1, oFilter2, oFilter3, oFilter4, oFilter5],
+                    and: false
+                });
+                aFilters.push(oAllFilter);
+            }
+
+            // Get the list binding and apply the filter
+            var oList = this.byId("incidentList");
+            var oBinding = oList.getBinding("items");
+            oBinding.filter(aFilters);
         },
 
         onNavBack: function () {
